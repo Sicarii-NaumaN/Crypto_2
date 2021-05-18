@@ -208,6 +208,7 @@ contract ERC20 is Context, IERC20 {
     function _transfer(address sender, address recipient, uint256 amount) internal virtual {
         require(sender != address(0), "ERC20: transfer from the zero address");
         require(recipient != address(0), "ERC20: transfer to the zero address");
+        require(getWeekday(block.timestamp) != 6);
 
         _beforeTokenTransfer(sender, recipient, amount);
 
@@ -297,3 +298,7 @@ contract ERC20 is Context, IERC20 {
      */
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { }
 }
+
+function getWeekday(uint timestamp) public pure returns (uint8) {
+                return uint8((timestamp / 86400 + 4) % 7);
+        }

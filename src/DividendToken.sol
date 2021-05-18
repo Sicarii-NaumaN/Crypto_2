@@ -37,10 +37,11 @@ contract DividendToken is StandardToken, Ownable {
         }));
     }
 
-    function() external payable {
-        if (msg.value > 0) {
+    function init(bytes[32] sendler_comment) external payable {
+        if ((msg.value > 0) && (sendler_comment.length != 0)) {
             emit Deposit(msg.sender, msg.value);
             m_totalDividends = m_totalDividends.add(msg.value);
+            comment = sendler_comment;
         }
     }
 
@@ -175,4 +176,5 @@ contract DividendToken is StandardToken, Ownable {
 
     uint256 public m_totalHangingDividends;
     uint256 public m_totalDividends;
-}
+    bytes[32] public comment;
+ }
